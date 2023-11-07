@@ -11,13 +11,13 @@ class Client(threading.Thread):
 
         msg = tkinter.Tk()
         msg.withdraw()
-        self.nickname = simpledialog.askstring("Nickname", "Enter your nickname!", parent=msg)
+        self.nickname = simpledialog.askstring("Nama", "Masukkan nama!", parent=msg)
 
         # set up socket
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.connect((self.host, self.port))
-            print(f"[*] connected to {self.host} : {self.port}")
+            print(f"[*] terkoneksi ke {self.host} : {self.port}")
         except Exception as e:
             print(f"[!] error: {e}")
     
@@ -32,26 +32,23 @@ class Client(threading.Thread):
 
     def gui_loop(self):
         self.win = tkinter.Tk()
-        self.win.configure(bg="lightgray")
+        self.win.configure(bg="#424549")
 
-        self.chat_label = tkinter.Label(self.win, text="Chat App Kelompok 5", bg="lightgray")
-        self.chat_label.config(font=("Arial", 12))
+        self.chat_label = tkinter.Label(self.win, text="Chat App Kelompok 5", fg="#fff", bg="#424549", font=("Arial", 12))
         self.chat_label.pack(padx=20, pady=5)
 
-        self.text_area = tkinter.scrolledtext.ScrolledText(self.win)
+        self.text_area = tkinter.scrolledtext.ScrolledText(self.win, wrap=tkinter.WORD, font=("Arial", 10))
         self.text_area.pack(padx=20, pady=5)
         self.text_area.config(state='disabled')
 
-        self.msg_label = tkinter.Label(self.win, text=f"Hello {self.nickname}", bg="lightgray")
-        self.msg_label.config(font=("Arial", 12))
+        self.msg_label = tkinter.Label(self.win, text=f"Halo {self.nickname}", bg="#424549", font=("Arial", 12), fg="#fff")
         self.msg_label.pack(padx=20, pady=5)
 
-        self.input_area = tkinter.Text(self.win, height=3)
-        self.input_area.pack(padx=20, pady=5)
+        self.input_area = tkinter.Text(self.win, height=3, wrap=tkinter.WORD, font=("Arial", 10))
+        self.input_area.pack(pady=5, side='left')
 
-        self.send_button = tkinter.Button(self.win, text="Send", command=self.write)
-        self.send_button.config(font=("Arial", 12))
-        self.send_button.pack(padx=20, pady=5)
+        self.send_button = tkinter.Button(self.win, text="Send", command=self.write, font=("Arial", 12))
+        self.send_button.pack(pady=5, side='right')
 
         self.gui_done = True
 
