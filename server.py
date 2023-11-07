@@ -61,7 +61,7 @@ class Server(threading.Thread):
                 if not message:
                     break
 
-                self.broadcast(f"{self.nicknames[self.client_list.index(client)]} : {message}".encode('utf-8'))
+                self.broadcast(f"{self.nicknames[self.client_list.index(client)]}:\n{message}".encode('utf-8'))
             except Exception as e:
                 print(f"[!] error: {e}")
                 break
